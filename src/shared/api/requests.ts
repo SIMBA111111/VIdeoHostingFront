@@ -11,10 +11,11 @@ export class Requests {
         return await fetch(fullUrl)
     }
 
-    static POST = async (url: string, data: Object) => {
+    static POST = async (url: string, formData: FormData) => {
         const fullUrl = this.getBaseUrl() + url 
         return await fetch(fullUrl, {
-            body: JSON.stringify(data)
+            method: 'POST',
+            body: formData
         })
     }
 }

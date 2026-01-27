@@ -206,7 +206,20 @@ export default class VideosAPI extends Requests {
             const res = await this.GET(fullUrl)            
             return await res.json()
         } catch (error) {
-            console.error('getVideoRetrieve: ', error)
+            console.error('getVideoRetrieve error: ', error)
+        }
+    }
+
+    static createVideo = async (formData: FormData) => {
+        const fullUrl = this.videoUrl + '/create'
+        console.log(fullUrl);
+         console.log("formData as object:", Object.fromEntries(formData.entries()));
+        
+        try {
+            const res = await this.POST(fullUrl, formData)            
+            return await res.json()
+        } catch (error) {
+            console.error('createVideo error: ', error)
         }
     }
 }

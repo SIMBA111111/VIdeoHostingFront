@@ -1,6 +1,6 @@
 "use client"
 
-import { useParams, useSearchParams } from "next/navigation"
+import { useParams } from "next/navigation"
 
 import Player from "Player/src/component";
 
@@ -20,10 +20,6 @@ export default function Video(
     const [isLoading, setIsLoading] = useState(true);
     
     const { id } = useParams()
-
-    console.log(typeof id);
-    console.log(id);
-    
 
     useEffect(() => {
         const handleGetVideo = async () => {
