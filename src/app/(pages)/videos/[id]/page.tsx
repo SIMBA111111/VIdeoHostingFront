@@ -46,7 +46,7 @@ export default function Video(
     
     return (
         <div>
-            <Player playlistUrl={currentVideo.playlistUrl} duration={currentVideo.duration} fragments={currentVideo.fragments}/>
+            <Player playlistUrl={'http://localhost:8080'+currentVideo.playlisturl} duration={currentVideo.duration} fragments={currentVideo.fragments}/>
         </div>
     )
 }

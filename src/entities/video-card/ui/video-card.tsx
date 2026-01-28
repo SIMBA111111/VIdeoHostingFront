@@ -5,6 +5,8 @@ import { useState } from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 
+const BACKEND_URL = 'http://localhost:8080'
+
 export const VideoCard = ({ video }: { video: IVideo }) => {
     const [isHovered, setIsHovered] = useState(false);
     
@@ -57,16 +59,16 @@ export const VideoCard = ({ video }: { video: IVideo }) => {
             <div className={styles.thumbnailContainer}>
                 {/* Превью изображение */}
                 <img
-                    src={video.thumbnail}
+                    src={BACKEND_URL+video.thumbnailurl}
                     alt={video.title}
                     className={`${styles.thumbnail} ${isHovered ? styles.thumbnailHover : ''}`}
                 />
                 
                 {/* Видеопревью при наведении */}
-                {isHovered && video.videoPreview && (
+                {isHovered && video.video_preview_url && (
                     <video
                         className={styles.videoPreview}
-                        src={video.videoPreview}
+                        src={BACKEND_URL+video.video_preview_url}
                         autoPlay
                         muted
                         loop

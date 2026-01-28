@@ -14,8 +14,10 @@ export interface IVideo {
     id: string
     title: string
     duration: number
-    thumbnail: string
-    videoPreview: string
+    thumbnailurl: string
+    videourl: string
+    playlisturl: string
+    video_preview_url: string
     views: number
     channel: IChannel
     date_publication?: string
