@@ -1,5 +1,5 @@
 export class Requests {
-    static baseUrl = 'http://localhost:8080'
+    static baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     static getBaseUrl = () => {
         return this.baseUrl

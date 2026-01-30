@@ -1,34 +1,13 @@
 'use client'
 
-// app/videos/create/CreateVideo.tsx
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
+
+import VideosAPI from "@/shared/api/videos-api";
+
 import styles from "./styles.module.scss";
+import { IFragments } from "@/entities/video-card/models/video-card.inteface";
 
-interface IFragments {
-  start: number;
-  end: number;
-  title: string;
-}
-
-interface IChannel {
-  id: string;
-  name: string;
-  avatarUrl?: string;
-}
-
-export interface IVideo {
-  id: string;
-  title: string;
-  duration: number;
-  thumbnail: string; // URL или base64
-  videoPreview: string; // URL или base64
-  video: FileList; // URL или base64
-  views: number;
-  channel: IChannel;
-  date_publication?: string;
-  fragments?: IFragments[];
-}
 
 type FormValues = {
   title: string;
@@ -39,7 +18,7 @@ type FormValues = {
   channel_avatarUrl?: string;
   videoFile: FileList;
   thumbnailFile: FileList;
-  fragments: Array<{ start: string; end: string; title: string }>;
+  fragments: IFragments[];
 };
 
 export default function CreateVideo() {
@@ -119,7 +98,6 @@ export default function CreateVideo() {
     formData.append("fragments", JSON.stringify(fragments));
 
     await VideosAPI.createVideo(formData)
-        
   };
 
 
@@ -291,7 +269,7 @@ export default function CreateVideo() {
 
           <button
             type="button"
-            onClick={() => append({ start: "0", end: "0", title: "" })}
+            onClick={() => append({ start: 0, end: 0, title: "" })}
             className={styles.addBtn}
           >
             + Добавить фрагмент
@@ -305,7 +283,3 @@ export default function CreateVideo() {
     </div>
   );
 }
-
-// нужно добавить в компонент, чтобы работало useFieldArray
-import { useFieldArray } from "react-hook-form";import VideosAPI from "@/shared/api/videos-api";
-

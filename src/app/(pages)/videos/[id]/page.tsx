@@ -1,23 +1,17 @@
 "use client"
 
 import { useParams } from "next/navigation"
+import { useState, useEffect } from "react";
 
-import Player from "Player/src/component";
+import { Player } from "Player/src/component";
 
 import VideosAPI from "@/shared/api/videos-api";
+import { IVideo } from "@/entities/video-card/models/video-card.inteface";
 
-import { useState, useEffect } from "react";
-// import Player from "../../../../../Player/src/component";
 
-export default function Video(
-// {
-    // searchParams,
-// }: {
-    // searchParams: Promise<{ [key: string]: string}>;
-// }
-) {
-    const [currentVideo, setCurrentVideo] = useState<any>();
-    const [isLoading, setIsLoading] = useState(true);
+export default function Video() {
+    const [currentVideo, setCurrentVideo] = useState<IVideo>();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     
     const { id } = useParams()
 
@@ -25,9 +19,8 @@ export default function Video(
         const handleGetVideo = async () => {
             try {
                 setIsLoading(true);
-                const videos = await VideosAPI.getVideoById(String(id));
-                
-                setCurrentVideo(videos);
+                const video = await VideosAPI.getVideoById(String(id));
+                setCurrentVideo(video);
             } catch (error) {
                 console.error("Ошибка при загрузке видео:", error);
             } finally {
@@ -38,15 +31,15 @@ export default function Video(
         handleGetVideo();
     }, []);
     
-    console.log('currentVideo = ', currentVideo);
-
-    if(!currentVideo) {
+    if(isLoading || !currentVideo) {
         return 'ЗАГРУЗКаа'
     }
     
+    const fullUrlPlaylist = process.env.NEXT_PUBLIC_BACKEND_URL + currentVideo.playlisturl;
+
     return (
         <div>
-            <Player playlistUrl={'http://localhost:8080'+currentVideo.playlisturl} duration={currentVideo.duration} fragments={currentVideo.fragments}/>
+            <Player playlistUrl={fullUrlPlaylist} duration={currentVideo.duration} fragments={currentVideo.fragments ?? []}/>
         </div>
     )
 }

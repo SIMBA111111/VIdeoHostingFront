@@ -1,4 +1,4 @@
-interface IFragments {
+export interface IFragments {
     start: number
     end: number
     title: string
